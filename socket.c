@@ -119,7 +119,7 @@ ErrSock_t using_socket(NetAccessStruct_t *ThisConnectionInstance)
 					    if (iResult > 0)
 					    {
 					    	printf("Bytes received: %d\n", iResult);
-					    	printf("Data: %s", recvbuf);
+					    	printf("Data: %s", &recvbuf);
 						}
 				    	    
 					    else if (iResult == 0)

@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
 	ThisConnection.pszQueryString="index.html";
 	ThisConnection.pszApplicationProtocol="HTTP/1.1";
 	ThisConnection.pszHostName="www.google.com";
-	ThisConnection.pszContentType="text/json";
+	ThisConnection.pszContentType="text/plain";
 	ThisConnection.pszFormedReqURL=FormattedURL;			
 
 	printf("Testing socket connection.......\n");
