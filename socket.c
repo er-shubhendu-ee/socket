@@ -2,9 +2,9 @@
 
 
 
-ErrSock_t using_socket(SocketFuncDescript_t *ThisSocket)
+ErrSock_t using_socket(NetAccessStruct_t *ThisConnectionInstance)
 {
-	char *pszHostName=ThisSocket->pszHostName;
+	char *pszHostName=ThisConnectionInstance->pszHostName;
 	int SizeHostName=strlen(pszHostName);
 	int ResponseWSAStartup;
 	int ResponseConnect;
@@ -12,8 +12,8 @@ ErrSock_t using_socket(SocketFuncDescript_t *ThisSocket)
 	int ResponseGetAddrInfo;
 	SOCKET SocketDescriptor;
 	WSADATA SocketData;
-			SocketData.wVersion	 	  = WinSockVersion_2_2;
-			SocketData.wHighVersion	  = WinSockVersion_2_2;
+			SocketData.wVersion	 	  = WinSockVersion;
+			SocketData.wHighVersion	  = WinSockVersion;
 	char WinSocImplementationInfo[255];
 	char WinSocConfigInfo[255];
 	SOCKADDR_IN saServer;
@@ -26,7 +26,7 @@ ErrSock_t using_socket(SocketFuncDescript_t *ThisSocket)
     ADDRINFO *pAddrInfoNULL = NULL;
 		
 	ResponseWSAStartup=WSAStartup(
-								WinSockVersion_2_2,
+								WinSockVersion,
   								&SocketData
 								);
 	if(ResponseWSAStartup!=0)
@@ -85,7 +85,12 @@ ErrSock_t using_socket(SocketFuncDescript_t *ThisSocket)
 					printf("Connection success using this socket.\n");
 					
 					int recvbuflen = DEFAULT_BUFLEN;
-					char *sendbuf = "GET /index.html HTTP/1.1\r\nHost:www.google.com\r\n\r\n\r\n";
+					form_send_buffer(ThisConnectionInstance);
+					char *sendbuf = ThisConnectionInstance->pszFormedReqURL;
+					
+					printf("Get Request in sendbuf:\n");
+					printf("%s\n", sendbuf);
+	
 					char recvbuf[DEFAULT_BUFLEN];
 					int iResult;
 // Send an initial buffer
@@ -244,5 +249,22 @@ void show_resolved_host_data(ADDRINFO *result)
 }
 
 
+void form_send_buffer(NetAccessStruct_t *ThisConnection)
+{
+	switch(ThisConnection->ConnectMethod)
+	{
+		case GET:
+		{
+			ThisConnection->pszFormedReqURL;
+			sprintf(ThisConnection->pszFormedReqURL, "GET /%s %s\r\nHost:%s\r\nContentType:%s\r\n\r\n\r\n", ThisConnection->pszQueryString, ThisConnection->pszApplicationProtocol,ThisConnection->pszHostName, ThisConnection->pszContentType);
+			break;
+		}
+		default:
+		{
+			printf("Error: Unable to form a GET request URL.");
+			break;
+		}
+	}
+}
 
 /************    End of socket.c   *********************/

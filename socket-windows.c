@@ -21,11 +21,21 @@
 
 int main(int argc, char *argv[])
 {
+	CHAR FormattedURL[URLLENGTH_MAX]="test";
+//	ZeroMemory(&FormattedURL, strlen(FormattedURL));
 	ErrSock_t ErrThisSock;
-	SocketFuncDescript_t ThisSocket;
-	ThisSocket.pszHostName="www.google.com";
+	NetAccessStruct_t ThisConnection;
+	ZeroMemory(&ThisConnection, sizeof(ThisConnection));
+	ThisConnection.ConnectMethod=GET;
+	ThisConnection.pszQueryString="index.html";
+	ThisConnection.pszApplicationProtocol="HTTP/1.1";
+	ThisConnection.pszHostName="www.google.com";
+	ThisConnection.pszContentType="text/json";
+	ThisConnection.pszFormedReqURL=FormattedURL;			
+
 	printf("Testing socket connection.......\n");
-	ErrThisSock=using_socket(&ThisSocket);
+	ErrThisSock=using_socket(&ThisConnection);
+
 	return 0;
 }
 
