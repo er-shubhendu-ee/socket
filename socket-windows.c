@@ -27,10 +27,10 @@ int main(int argc, char *argv[])
 	NetAccessStruct_t ThisConnection;
 	ZeroMemory(&ThisConnection, sizeof(ThisConnection));
 	ThisConnection.ConnectMethod=GET;
-	ThisConnection.pszQueryString="index.html";
+	ThisConnection.pszQueryString="currentconditions/v1/206690?apikey=oFGptohDvJ6AtTgijcbjPLiqBXeWOol0";
 	ThisConnection.pszApplicationProtocol="HTTP/1.1";
-	ThisConnection.pszHostName="www.google.com";
-	ThisConnection.pszContentType="text/plain";
+	ThisConnection.pszHostName="developer.accuweather.com";
+	ThisConnection.pszContentType="text/html";
 	ThisConnection.pszFormedReqURL=FormattedURL;			
 
 	printf("Testing socket connection.......\n");

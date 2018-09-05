@@ -36,7 +36,7 @@
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
 
 #define URLLENGTH_MAX 200
-#define DEFAULT_BUFLEN 1024
+#define DEFAULT_BUFLEN 99999
 
 typedef enum TagErrSock
 {

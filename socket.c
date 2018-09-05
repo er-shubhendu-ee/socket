@@ -102,7 +102,7 @@ ErrSock_t using_socket(NetAccessStruct_t *ThisConnectionInstance)
 					}
 
 					printf("Bytes Sent: %ld\n", iResult);
-
+/*
 // shutdown the connection for sending since no more data will be sent
 // the client can still use the ConnectSocket for receiving data
 					iResult = shutdown(SocketDescriptor, SD_SEND);
@@ -111,7 +111,7 @@ ErrSock_t using_socket(NetAccessStruct_t *ThisConnectionInstance)
 				    	printf("shutdown failed: %d\n", WSAGetLastError());
 				    	closesocket(SocketDescriptor);
 					}
-
+*/
 // Receive data until the server closes the connection
 					do
 					{
@@ -119,7 +119,8 @@ ErrSock_t using_socket(NetAccessStruct_t *ThisConnectionInstance)
 					    if (iResult > 0)
 					    {
 					    	printf("Bytes received: %d\n", iResult);
-					    	printf("Data: %s", &recvbuf);
+					    	printf("\n******************************************      Data received       ****************************************\
+								  \n%s", &recvbuf);
 						}
 				    	    
 					    else if (iResult == 0)
